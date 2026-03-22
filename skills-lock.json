@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "skills": {
+    "brainstorming": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "efddfd0efbd0e7b5075c5a66ff91a706ac506c88c7b5ddd7fd45a351cb3fe3af"
+    },
+    "dispatching-parallel-agents": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "e21044ae7496fc285f1df9ff3fb518a3a20bea6f5216c1f59f4987e12c769a0a"
+    },
+    "executing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "2f709d1a2c7564f8ce6a9bb707e7f5451117ba80f8e8e2302662c29bc61246a6"
+    },
+    "finishing-a-development-branch": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "9edba9a38684c060fdc38290f640e1dc0c37de286723ac9be73bacacf7cd6f3d"
+    },
+    "receiving-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "2760c85d4f4117b0006e7ba755f4bbd61f8f4c185f347999763c97f507274e30"
+    },
+    "requesting-code-review": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "246e65cd72a7e360987d94e6c61564ce6d71c6361d1784d529d70e4cbbe8522d"
+    },
+    "subagent-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "a197f8e5fba5ea59013e1adbaa90dd42db35de8f074feca200c8038de584a83b"
+    },
+    "swain": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "ad516ac0708cb57ffb12b958a059af01e7370cc53911daa9143fc8fcbdabad3d"
+    },
+    "swain-design": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "c96e27a4cb99128cf66f5f39fe60407f466b0ced820de0c44b98685c8d0e62a6"
+    },
+    "swain-dispatch": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "c2aeb424ebc0d7fb6daa0f340e0e77b988fa0a84f16b0b99cac494b2ee997dd9"
+    },
+    "swain-do": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "a9f730c32ba250bb6ae7189ebb84862137898299aec9a24db320689dae0e5159"
+    },
+    "swain-doctor": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "f1146b9f50a8125f24c79affa443157f639ba31e5a15359ed823df8c1702c26f"
+    },
+    "swain-help": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "7730f216469a9009a601aa33c2f5764c6a11512bdb6b8d42771b49cb5257e634"
+    },
+    "swain-init": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "b760b5aaf520732c7ac75ea93c97713f5edaf6604feac6bd687d2578ba0def64"
+    },
+    "swain-keys": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "d29d85e948e5805bb9515b4417f4253f903b7d3bae2f7e1eb4a2c0de2a1a399b"
+    },
+    "swain-release": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "c73f66d9ae081ff20c5e55df3922463baf5cace95f31b6911c41e4dd4cf58d5b"
+    },
+    "swain-retro": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "a0d3a83473d1465351d2b66256c3745cbb237d81d1f3eb265aa044aa473bace5"
+    },
+    "swain-roadmap": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "2769847075542ff5404bb387e653c70165f0892cbb0a59bc5423866297758fb2"
+    },
+    "swain-search": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "2842a8f8da9c1445f8c2835571db973ffb9ef8b8206bea437a975b0af7a395f0"
+    },
+    "swain-security-check": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "c97a8fb61aa023275a064f274d714cd9de23fe3b18163da7e884edc2b28654e2"
+    },
+    "swain-session": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "dbf4fb24436b3fa0d91511cb0ce83da1d6d1445812c16482bedbfa7a2a773a64"
+    },
+    "swain-stage": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "cc3dc0289032d85f62abe6fdcc5c251f3423002ef0b64b78a3d28216c5eaaa24"
+    },
+    "swain-status": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "9762dd8891062bb26a2ff98ef011dacb9ae3c622fe4c695552639c2821e1ed46"
+    },
+    "swain-sync": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "1def930fbfcc27c0a83bae4d555cfb723575e308c2c1132a7e54bbd9c2ce98e9"
+    },
+    "swain-update": {
+      "source": "cristoslc/swain",
+      "sourceType": "github",
+      "computedHash": "4e78e9c8f93b59166a43e379a38d7cbd80e7a65961ed872e93cbe444275bffe9"
+    },
+    "systematic-debugging": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "72e9ab72627e4fd8ed26a582e82309a98ecdc4f6e1c99418430ac05682c9e91d"
+    },
+    "test-driven-development": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "126f1ebf6ccd414f42544f6e83d8cc5adb089e1108eaffb7c400701e37eecd9f"
+    },
+    "using-git-worktrees": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "52bbb4b6e80918e83e92a1514f3b3757712154c2a8a42de24919e48a794c54fc"
+    },
+    "using-superpowers": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "91a4d2ccb9432dfd4d3654f6ebd97875adab301d3d77f84e590169ba397760e3"
+    },
+    "verification-before-completion": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "9b446f0c7fe1cfb560b1d34439523b1a76d5f177290007b2c053a1c749a4a8ba"
+    },
+    "writing-plans": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "70fe626d5970349239e939f311893389563a6338cda40eb0500606dd48aa3afa"
+    },
+    "writing-skills": {
+      "source": "obra/superpowers",
+      "sourceType": "github",
+      "computedHash": "7cd0c064b5a62ffdc9cfff539a7b4d8d4a7792c8f0d544436bea021f08632e7b"
+    }
+  }
+}
