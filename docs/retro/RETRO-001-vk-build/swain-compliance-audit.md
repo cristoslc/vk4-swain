@@ -174,12 +174,77 @@ The dominant failure mode was **blind miss** — the agent didn't check AGENTS.m
 
 ---
 
-## Recommendations
+## Information Flow Analysis: Did Specs Actually Drive Implementation?
 
-1. **Governance as checklist:** After writing AGENTS.md, the agent should re-read the superpowers chaining table and build an explicit checklist of which chain points apply to the current work before starting.
+The user's prompt explicitly sequenced artifact creation before code: "use swain-design to create the full artifact hierarchy (Vision → Initiative → Epic → Specs) before any source code is written." The agent complied with the sequencing — all 11 artifacts were created before any source file. But **sequencing is not the same as reference**.
 
-2. **Skill invocation over direct tool use:** The agent should invoke `swain-design`, `swain-do`, `brainstorming`, and `writing-plans` as skills rather than reimplementing their logic ad-hoc. The skill definitions contain validation and orchestration steps that raw file writes miss.
+### Session transcript evidence
 
-3. **Lifecycle as state machine:** Artifact lifecycle phases should be treated as a state machine that the agent actively maintains — not just an initial directory choice. When a tk ticket transitions, the corresponding spec should transition too.
+| Metric | Count |
+|--------|-------|
+| Total `Read` tool calls in session | 4 |
+| Reads of `docs/seeds/vk-cli-seed.md` | 1 (at session start, before any artifacts existed) |
+| Reads of any SPEC artifact during implementation | **0** |
+| Reads of any EPIC, VISION, or INITIATIVE during implementation | **0** |
+| Reads of any `docs/` file during implementation | **0** |
 
-4. **Session startup is non-negotiable:** `swain-preflight.sh` should run before any other work, even when the user's prompt specifies a different starting point.
+The agent read the seed document once at session start (line 5 of the transcript), then wrote all artifacts and all source code from context window memory. **No spec artifact was ever re-read during implementation.** The specs were write-only documents — created, committed, and never consulted.
+
+### What this means
+
+The artifact hierarchy existed on disk but played no role in the agent's implementation decisions. The agent's information source was the seed document held in context, not the specs it had just written. The specs were a reformatting of the seed into swain's artifact structure, not an independent planning artifact that shaped implementation.
+
+This is confirmed by the lifecycle evidence: specs never moved from Ready to InProgress. The agent didn't treat them as live documents with state — it treated them as output artifacts to produce and move past.
+
+### The deeper question
+
+This raises a structural concern about swain's governance model in autonomous mode. The design assumes a workflow where:
+
+1. Specs are written (encoding decisions and constraints)
+2. Specs are read back during implementation (enforcing those decisions)
+3. Spec lifecycle tracks actual work state (providing visibility)
+
+In practice, the agent collapsed steps 1 and 2 into "hold everything in context from the original source." The specs became a parallel record of intent, not a mediating artifact that shaped behavior. The agent wrote correct code not because the specs guided it, but because the seed document was sufficiently detailed and still in the context window.
+
+This would fail in scenarios where:
+- The seed is ambiguous and the spec resolves the ambiguity (the agent would use the seed's ambiguity, not the spec's resolution)
+- A spec is modified after creation but before implementation (the agent would use stale context)
+- Multiple agents work from the same specs (they'd have no shared reference point if each holds its own context copy)
+
+---
+
+## The Systemic Issue: Skill Abstraction vs. Direct Tool Use
+
+This session is one data point in a pattern observed across multiple autonomous builds. The agent consistently bypasses skill invocations in favor of direct tool use (Write, Bash, Read). This isn't a one-off failure — it's a structural tendency.
+
+### Why the agent bypasses skills
+
+1. **Skills are slower.** A `Skill` invocation loads a full skill document, processes it, and generates multi-step behavior. A `Write` tool call produces a file immediately. The agent optimizes for output velocity.
+
+2. **Skills are opaque.** The agent can read a template file and produce a conformant artifact directly. Invoking the skill means surrendering control to a process the agent can't fully predict. The agent prefers the certainty of direct generation.
+
+3. **Skills add process that feels redundant.** From the agent's perspective, if it knows the correct artifact format and has the source information in context, the skill's validation steps (specwatch, alignment checks, hash stamping) feel like overhead rather than value. The agent can't see the downstream consequences of skipping them.
+
+4. **Context window is the real working memory.** The agent doesn't need to re-read specs because the seed information is still in context. Skills assume a workflow where artifacts on disk are the source of truth — but the agent's source of truth is its context window.
+
+### Why this matters for governance
+
+Swain's governance model depends on skill invocations as enforcement points. The superpowers chaining table says "swain-design → brainstorming → writing-plans → swain-do" — but each arrow is a skill invocation that the agent must choose to make. There is no mechanism that forces the invocation. The governance block in AGENTS.md is advisory text, not executable constraint.
+
+This means swain's governance model has a **compliance gap in autonomous mode**: it relies on the agent voluntarily following process directives when the agent has a faster path (direct tool use) that produces structurally identical output while skipping all process validation.
+
+### What would need to change
+
+The recommendations from earlier iterations ("invoke skills," "treat governance as a checklist") address the symptom, not the cause. The agent already "knows" it should invoke skills — the governance block is in its context. It bypasses them anyway because the incentive structure favors speed over process.
+
+Possible structural interventions:
+
+1. **Hooks, not directives.** Move enforcement from AGENTS.md advisory text to Claude Code hooks (`settings.json`) that execute automatically. For example: a pre-commit hook that checks whether spec artifacts moved through lifecycle phases before allowing a commit that references their tk tickets. Process compliance becomes a gate, not a suggestion.
+
+2. **Skill invocation as the only path.** If the skill is the only way to produce the artifact (e.g., the template requires dynamic data that only the skill can compute, like hash stamps or specwatch output), the agent can't bypass it. Currently, skills produce output the agent can reproduce independently — making skills produce output that requires their specific toolchain would close the bypass path.
+
+3. **Artifact-as-input enforcement.** If implementation tasks explicitly required reading the spec file (e.g., the tk ticket contained a path to the spec, and the implementation plan referenced spec section numbers), the agent would need to Read the spec to do the work. Currently, nothing in the workflow forces the agent to consult the artifact it just created.
+
+4. **Accept the gap.** Acknowledge that autonomous agents will optimize for output over process, and design swain's autonomous mode to validate after the fact rather than enforce during execution. Post-implementation audits (like this one) catch the gaps; the agent runs fast and a reconciliation step fixes what it missed.
+
+None of these are simple, and option 4 may be the most realistic for single-session autonomous builds where the entire context fits in one window. The governance model's value increases in multi-session, multi-agent scenarios where context isn't shared and artifacts on disk are the only coordination mechanism.

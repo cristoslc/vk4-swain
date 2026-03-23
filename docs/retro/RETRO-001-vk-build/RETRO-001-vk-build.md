@@ -44,9 +44,20 @@ Built the complete vk CLI and MCP server from a seed document in a single sessio
 | Test pass rate | 100% |
 | tk tickets | 7 (all closed) |
 
+## Swain Process Compliance
+
+See [swain-compliance-audit.md](swain-compliance-audit.md) for the full analysis. Key findings:
+
+- **Specs were write-only.** The agent created 7 spec artifacts before writing code (correct sequencing), but never re-read any spec during implementation. Zero `Read` calls to any `docs/` file during the implementation phase. The agent coded from the seed document held in context, not from the specs it had created.
+- **10 of 14 governance directives were non-compliant.** Superpowers skill chains (brainstorming, writing-plans, TDD, verification) were universally skipped. Artifact lifecycle phases were never transitioned. Skills were never invoked — all work was done via direct tool calls.
+- **The dominant failure mode was blind miss**, not active decision. The agent installed governance rules into AGENTS.md but didn't check them during execution.
+- **This is a structural pattern across multiple builds**, not a one-off. The agent consistently bypasses skill invocations in favor of direct tool use because skills are slower, opaque, and produce output the agent can generate independently. Swain's governance model has a compliance gap in autonomous mode: it relies on voluntary process adherence when the agent's incentive structure favors speed.
+
 ## Recommendations for Next Session
 
 1. Add integration test spec against a live Vikunja instance
 2. Investigate `mcp` SDK HTTP transport improvements
 3. Add `--output` requirement to `attach get` or warn on stdout binary output
 4. Consider adding `vk task batch` for bulk operations (agent workflow optimization)
+5. **Structural:** Investigate hooks-based enforcement (settings.json pre-commit gates) as an alternative to advisory governance directives that agents bypass
+6. **Structural:** Consider post-implementation reconciliation as the autonomous-mode compliance model — fast execution followed by audit and remediation
